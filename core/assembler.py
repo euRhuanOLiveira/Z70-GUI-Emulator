@@ -1,5 +1,6 @@
 import re
-from arch import *
+from core.arch import *
+
 
 HEX_RE = re.compile(r'^(-)?[0-9A-Fa-f]+H?$')
 

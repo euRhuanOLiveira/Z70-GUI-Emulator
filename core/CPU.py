@@ -1,4 +1,4 @@
-from arch import *
+from core.arch import *
 
 def handle_mov(cpu, dst_loc, src_loc):
     val = cpu.get_loc_val(*src_loc)

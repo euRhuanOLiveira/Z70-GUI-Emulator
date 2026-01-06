@@ -59,7 +59,7 @@ def handle_or(cpu, dst_loc, src_loc):
 def handle_inc(cpu, dst_loc):
     val = cpu.get_loc_val(*dst_loc)
     res = (val + 1) & 0xFF
-    cf = 1 if val == 0xFF else 0
+    cf = cpu.get_flag('CF')
     signed = val - 256 if val & 0x80 else val
     signed_r = signed + 1
     of = 1 if signed_r > 127 or signed_r < -128 else 0
@@ -69,7 +69,7 @@ def handle_inc(cpu, dst_loc):
 def handle_dec(cpu, dst_loc):
     val = cpu.get_loc_val(*dst_loc)
     res = (val - 1) & 0xFF
-    cf = 1 if val == 0 else 0
+    cf = cpu.get_flag('CF')
     signed = val - 256 if val & 0x80 else val
     signed_r = signed - 1
     of = 1 if signed_r > 127 or signed_r < -128 else 0
@@ -79,7 +79,6 @@ def handle_dec(cpu, dst_loc):
 def handle_not(cpu, dst_loc):
     val = cpu.get_loc_val(*dst_loc)
     res = (~val) & 0xFF
-    cpu.set_flags(res, logical=True)
     cpu.set_loc_val(*dst_loc, res)
 
 def handle_shr(cpu, dst_loc):
